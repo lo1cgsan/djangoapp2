@@ -8,4 +8,5 @@ def index(request):
 
 
 def news(request):
-    return HttpResponse("<h1>Nowości w barze</h1>")
+    # return HttpResponse("<h1>Nowości w barze</h1>")
+    return render(request, 'pizza/news.html')
