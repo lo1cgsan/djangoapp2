@@ -15,6 +15,9 @@ class Pizza(models.Model):
     cena = models.DecimalField(max_digits=5, decimal_places=2, default=0)
     data = models.DateField('dodano', auto_now_add=True)
 
+    def __str__(self):
+        return self.nazwa;
+
 
 class Skladnik(models.Model):
     pizze = models.ManyToManyField(Pizza, related_name='skladniki')
@@ -23,4 +26,7 @@ class Skladnik(models.Model):
         'jarski?',
         help_text='Zaznacz, jeżeli składnik jest odpowiedni dla wegetarian',
         default=False)
-    cena = models.DecimalField(max_digits='3', decimal_places=2, default=0)
+    cena = models.DecimalField(max_digits=3, decimal_places=2, default=0)
+
+    def __str__(self):
+        return self.nazwa;
