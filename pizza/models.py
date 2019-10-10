@@ -18,9 +18,11 @@ class Pizza(models.Model):
     def __str__(self):
         return self.nazwa;
 
+    class Meta:
+        verbose_name_plural = "pizze"
 
 class Skladnik(models.Model):
-    pizze = models.ManyToManyField(Pizza, related_name='skladniki')
+    pizze = models.ManyToManyField(Pizza, related_name='skladniki', null=True, blank=True)
     nazwa = models.CharField('składnik', max_length=30)
     jarski = models.BooleanField(
         'jarski?',
@@ -30,3 +32,6 @@ class Skladnik(models.Model):
 
     def __str__(self):
         return self.nazwa
+
+    class Meta:
+        verbose_name_plural = "skladniki"
