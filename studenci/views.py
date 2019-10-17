@@ -7,6 +7,5 @@ def index(request):
     # return render(request, 'pizza/index.html')
 
 
-def news(request):
-    return HttpResponse("<h1>Nowości u studentów</h1>")
-    # return render(request, 'pizza/news.html')
+def miasta(request):
+    return render(request, 'studenci/miasta.html')

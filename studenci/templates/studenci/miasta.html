@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Miasta</title>
+</head>
+<body>
+
+<h1>Miasta</h1>
+
+<h2>Dodaj miasto</h2>
+<form action="." method="POST">
+    {% csrf_token %}
+    <input type="text" name="nazwa" maxlength="30">
+    <br>
+    <input type="submit" value="Zapisz">
+</form>
+
+</body>
+</html>
