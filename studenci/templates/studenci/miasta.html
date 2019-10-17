@@ -13,6 +13,8 @@
     {% csrf_token %}
     <input type="text" name="nazwa" maxlength="30">
     <br>
+    <input type="text" name="kod" maxlength="6">
+    <br>
     <input type="submit" value="Zapisz">
 </form>
 
@@ -21,7 +23,6 @@
     {% for miasto in miasta %}
         <li>{{ miasto.nazwa }}&nbsp;{{ miasto.kod }}</li>
     {% endfor %}
-    <li></li>
 </ol>
 
 </body>
