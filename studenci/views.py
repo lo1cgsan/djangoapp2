@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
-from studenci.models import Miasto
+from studenci.models import Miasto, Uczelnia
 
 
 def index(request):
@@ -23,3 +23,18 @@ def miasta(request):
     }
 
     return render(request, 'studenci/miasta.html', kontekst)
+
+
+def uczelnie(request):
+
+    if request.method == 'POST':
+        nazwa = request.POST.get('nazwa')
+        u = Uczelnia(nazwa=nazwa)
+        u.save()
+
+    uczelnie = Uczelnia.objects.all()
+    kontekst = {
+        'uczelnie': uczelnie
+    }
+
+    return render(request, 'studenci/uczelnie.html', kontekst)
