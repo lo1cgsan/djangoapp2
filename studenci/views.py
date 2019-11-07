@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib import messages
+from django.urls import reverse
 
 from studenci.models import Miasto, Uczelnia
 from studenci.forms import StudentLoginForm, UczelniaForm
@@ -34,10 +35,12 @@ def uczelnie(request):
     if request.method == 'POST':
         form = UczelniaForm(request.POST)
         if form.is_valid():
-            print(form.cleaned_data)
-
-        # u = Uczelnia(nazwa=nazwa)
-        # u.save()
+            # print(form.cleaned_data)
+            u = Uczelnia(nazwa=form.cleaned_data['nazwa'])
+            u.save()
+            messages.success(request, "Dane zapisano!")
+            # przekierowanie
+            return redirect(reverse('studenci:uczelnie'))
     else:
         form = UczelniaForm()
 
