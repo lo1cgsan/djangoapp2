@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.contrib import messages
 
 from studenci.models import Miasto, Uczelnia
-
+from studenci.forms import StudentLoginForm, UczelniaForm
 
 def index(request):
     return HttpResponse("Witaj w aplikacji Studenci!")
@@ -32,13 +32,29 @@ def miasta(request):
 def uczelnie(request):
 
     if request.method == 'POST':
-        nazwa = request.POST.get('nazwa')
-        u = Uczelnia(nazwa=nazwa)
-        u.save()
+        form = UczelniaForm(request.POST)
+        if form.is_valid():
+            print(form.cleaned_data)
+
+        # u = Uczelnia(nazwa=nazwa)
+        # u.save()
+    else:
+        form = UczelniaForm()
 
     uczelnie = Uczelnia.objects.all()
     kontekst = {
+        'form': form,
         'uczelnie': uczelnie
     }
 
     return render(request, 'studenci/uczelnie.html', kontekst)
+
+
+def login(request):
+    if request.method == 'POST':
+        pass
+    else:
+        form = StudentLoginForm()
+
+    kontekst = { 'form': form }
+    return render(request, 'studenci/login.html', kontekst)
