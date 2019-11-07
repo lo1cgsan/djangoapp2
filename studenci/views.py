@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.urls import reverse
 
 from studenci.models import Miasto, Uczelnia
-from studenci.forms import StudentLoginForm, UczelniaForm
+from studenci.forms import StudentLoginForm, UczelniaForm, MiastoForm
 
 def index(request):
     return HttpResponse("Witaj w aplikacji Studenci!")
@@ -13,18 +13,24 @@ def index(request):
 
 def miasta(request):
     if request.method == 'POST':
-        nazwa = request.POST.get('nazwa')
-        kod = request.POST.get('kod')
-        if len(nazwa.strip()):
-            m = Miasto(nazwa=nazwa, kod=kod)
+        form = MiastoForm(request.POST)
+        # nazwa = request.POST.get('nazwa')
+        # kod = request.POST.get('kod')
+        # if len(nazwa.strip()):
+        if form.is_valid():
+            m = Miasto(nazwa=form.cleaned_data['nazwa'], kod=form.cleaned_data['kod'])
             m.save()
             messages.success(request, "Dane zapisano!")
+            return redirect(reverse('studenci:miasta'))
         else:
             messages.error(request, "Błędne dane!")
+    else:
+        form = MiastoForm()
 
     miasta = Miasto.objects.all()
     kontekst = {
-        'miasta': miasta
+        'miasta': miasta,
+        'form': form
     }
 
     return render(request, 'studenci/miasta.html', kontekst)
