@@ -1,6 +1,6 @@
 {% extends 'szablon.html' %}
 {% block tytul %}Użytkownicy{% endblock tytul %}
-{% block naglowek %}Rejestracja{% endblock naglowek %}
+{% block naglowek %}Logowanie{% endblock naglowek %}
 {% block tresc %}
 
     {% if user.is_aunthenticated %}
@@ -10,7 +10,7 @@
         <form action="." method="POST">
         {% csrf_token %}
         {{ form.as_p }}
-        <input type="submit" value="Zapisz" class="btn btn-primary">
+        <input type="submit" value="Zaloguj" class="btn btn-primary">
         </form>
     {% endif %}
 
