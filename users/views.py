@@ -7,7 +7,13 @@ from users.forms import UserLoginForm
 
 
 def index(request):
-    pass
+    return render(request, 'users/index.html')
+
+
+def wyloguj(request):
+    logout(request)
+    messages.info(request, "Zostałeś wylogowany!")
+    return redirect(reverse('users:index'))
 
 
 def rejestruj(request):
