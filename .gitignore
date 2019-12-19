@@ -3,6 +3,7 @@
 *.exe
 *.lck
 .~*
+*.sqlite3
 
 __pycache__/
 *.py[cod]
