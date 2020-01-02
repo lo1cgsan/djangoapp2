@@ -6,6 +6,8 @@ from django.urls import reverse
 from studenci.models import Miasto, Uczelnia
 from studenci.forms import StudentLoginForm, UczelniaForm, MiastoForm
 
+from django.views.generic import ListView
+
 def index(request):
     # return HttpResponse("Witaj w aplikacji Studenci!")
     return render(request, 'studenci/index.html')
@@ -71,3 +73,9 @@ def login(request):
 
     kontekst = { 'form': form }
     return render(request, 'studenci/login.html', kontekst)
+
+
+class ListaUczelni(ListView):
+    model = Uczelnia
+    context_object_name = 'uczelnie'
+    template_name = 'studenci/lista_uczelni.html'
