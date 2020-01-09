@@ -7,6 +7,11 @@ from studenci.models import Miasto, Uczelnia
 from studenci.forms import StudentLoginForm, UczelniaForm, MiastoForm
 
 from django.views.generic import ListView
+from django.views.generic.edit import CreateView
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
+from django.urls import reverse_lazy
+
 
 def index(request):
     # return HttpResponse("Witaj w aplikacji Studenci!")
@@ -79,3 +84,20 @@ class ListaUczelni(ListView):
     model = Uczelnia
     context_object_name = 'uczelnie'
     template_name = 'studenci/lista_uczelni.html'
+
+
+@method_decorator(login_required, name='dispatch')
+class DodajMiasto(CreateView):
+    model = Miasto
+    fields = ('nazwa', 'kod')
+    template_name = 'studenci/miasto_dodaj.html'
+    success_url = reverse_lazy('studenci:miasta_lista')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['miasta'] = Miasto.objects.all()
+        return context
+
+    def form_valid(self, form):
+        messages.success(self.request, "Dodano miasto!")
+        return super().form_valid(form)
