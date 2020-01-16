@@ -4,14 +4,14 @@ from django.contrib import messages
 from django.urls import reverse
 
 from studenci.models import Miasto, Uczelnia
-from studenci.forms import StudentLoginForm, UczelniaForm, MiastoForm
+from studenci.forms import StudentLoginForm, UczelniaForm, MiastoForm, MiastoModelForm
 
 from django.views.generic import ListView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
-
+from django.contrib.messages.views import SuccessMessageMixin
 
 def index(request):
     # return HttpResponse("Witaj w aplikacji Studenci!")
@@ -101,3 +101,17 @@ class DodajMiasto(CreateView):
     def form_valid(self, form):
         messages.success(self.request, "Dodano miasto!")
         return super().form_valid(form)
+
+
+@method_decorator(login_required, name='dispatch')
+class EdytujMiasto(SuccessMessageMixin, UpdateView):
+    model = Miasto
+    form_class = MiastoModelForm
+    template_name = 'studenci/miasto_dodaj.html'
+    success_url = reverse_lazy('studenci:miasta_lista')
+    success_message = 'Zaktualizowano miasto!'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['miasta'] = Miasto.objects.all()
+        return context
