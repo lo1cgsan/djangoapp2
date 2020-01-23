@@ -3,12 +3,13 @@
 
 {% block naglowek %}Uczelnie{% endblock naglowek %}
 {% block tresc %}
+    {% load crispy_forms_tags %}
 <h2>Dodaj uczelnię</h2>
 <form action="." method="POST">
     {% csrf_token %}
     <!-- <input type="text" name="nazwa" maxlength="30">
     <br> -->
-    {{ form.as_p }}
+    {{ form|crispy }}
     <input type="submit" value="Zapisz">
 </form>
 
