@@ -6,7 +6,7 @@ from django.urls import reverse
 from studenci.models import Miasto, Uczelnia
 from studenci.forms import StudentLoginForm, UczelniaForm, MiastoForm, MiastoModelForm
 
-from django.views.generic import ListView
+from django.views.generic import ListView, DeleteView
 from django.views.generic.edit import CreateView, UpdateView
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
@@ -115,3 +115,8 @@ class EdytujMiasto(SuccessMessageMixin, UpdateView):
         context = super().get_context_data(**kwargs)
         context['miasta'] = Miasto.objects.all()
         return context
+
+
+class UsunMiasto(DeleteView):
+    model = Miasto
+    success_url = reverse_lazy('studenci:miasta_lista')

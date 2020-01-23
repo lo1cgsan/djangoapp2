@@ -11,6 +11,7 @@ urlpatterns = [
     path('miasta/', views.miasta, name='miasta'),
     path('miasta/dodaj', views.DodajMiasto.as_view(), name='miasta_dodaj'),
     path('miasta/edytuj/<int:pk>', views.EdytujMiasto.as_view(), name='miasta_edytuj'),
+    path('miasta/usun/<int:pk>', views.UsunMiasto.as_view(), name='miasta_usun'),
     path('uczelnie/', views.uczelnie, name='uczelnie'),
     path('uczelnie/lista', views.ListaUczelni.as_view(), name='uczelnie_lista'),
     path('login/', views.login, name='login'),
